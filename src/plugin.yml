@@ -1,0 +1,7 @@
+main: io.github.sindastra.BukkitSpawnTeleport.Main
+version: 1.0
+name: SindastrasSpawnTeleport
+commands:
+    spawn:
+        description: Teleports the user to their current world's spawn.
+        usage: /spawn

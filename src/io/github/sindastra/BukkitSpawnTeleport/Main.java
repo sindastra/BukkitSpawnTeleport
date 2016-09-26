@@ -22,6 +22,7 @@
 
 package io.github.sindastra.BukkitSpawnTeleport;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -30,17 +31,21 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import net.md_5.bungee.api.ChatColor;
-
 public class Main extends JavaPlugin implements Listener
 {
 	private boolean useLightningEffect;
+	private boolean broadcastTeleport;
+	private String broadcastMessage;
 	
 	@Override
 	public void onEnable()
 	{
 		saveDefaultConfig();
+		
 		useLightningEffect = getConfig().getBoolean("use-lightning-effect");
+		broadcastTeleport = getConfig().getBoolean("broadcast-teleport");
+		broadcastMessage = getConfig().getString("broadcast-message");
+		
 		getLogger().info("Enabled!");
 	}
 	
@@ -65,10 +70,18 @@ public class Main extends JavaPlugin implements Listener
 				if(player.getWorld().getEnvironment().equals(World.Environment.NORMAL))
 				{
 					Location spawnLocation = player.getWorld().getSpawnLocation();
+					
+					if(useLightningEffect)
+						player.getWorld().strikeLightningEffect(player.getLocation());
+					
 					player.teleport(spawnLocation);
 					
 					if(useLightningEffect)
 						player.getWorld().strikeLightningEffect(spawnLocation);
+					
+					if(broadcastTeleport)
+						getServer().broadcastMessage(String.format(broadcastMessage, player.getName()));	
+					
 				}
 				else
 					player.sendMessage(ChatColor.RED + "Only in the overworld, dear!");

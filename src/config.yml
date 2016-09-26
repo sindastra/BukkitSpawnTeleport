@@ -1,2 +1,14 @@
+# Always keep this file UTF-8 encoded!
+
 # This does not set things on fire.
 use-lightning-effect: true
+
+# Whether to broadcast a message when a player teleports to spawn or not.
+broadcast-teleport: true
+
+# The following is the message to be broadcast,
+# where %s stands for the player name.
+# Color codes may be used.
+
+broadcast-message: "§6%s §bjust teleported to the §aspawn§b!
+\n§bJoin them by typing §6/spawn§r"
